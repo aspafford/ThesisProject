@@ -16,7 +16,11 @@
     'app.routeInfo',
     'angularSpinner',
     'ngLoadingSpinner',
-    'ngMdIcons'
+    'ngMdIcons',
+
+    // d3
+    'app.d3Directive',
+    'd3'
   ]);
 
 
