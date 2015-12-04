@@ -1,5 +1,5 @@
 angular.module('app.d3Directive', ['d3'])
-  .directive('barChart', ['d3Service', function(d3Service) {
+  .directive('d3Bars', ['d3Service', '$window', function(d3Service, $window) {
     return {
       restrict: 'EA',
       scope: {},
@@ -10,7 +10,7 @@ angular.module('app.d3Directive', ['d3'])
             barHeight = parseInt(attrs.barHeight) || 20,
             barPadding = parseInt(attrs.barPadding) || 5;
 
-          var svg = d3.select(ele[0])
+          var svg = d3.select(element[0])
             .append('svg')
             .style('width', '100%');
 
@@ -51,7 +51,7 @@ angular.module('app.d3Directive', ['d3'])
             if (!data) return;
 
             // setup variables
-            var width = d3.select(ele[0]).node().offsetWidth - margin,
+            var width = d3.select(element[0]).node().offsetWidth - margin,
               // calculate the height
               height = scope.data.length * (barHeight + barPadding),
               // Use the category20() scale function for multicolor support
