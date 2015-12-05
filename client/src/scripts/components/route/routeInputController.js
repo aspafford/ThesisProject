@@ -123,6 +123,9 @@
         // re-format elevation data with turf points
         RouteService.elevationCollection = RouteService.getElevationPath(elevation);
 
+        // broadcast elevationCollection to d3 controller
+        $scope.$broadcast('routePlotted', RouteService.elevationCollection);
+
         // resample turfline for 3d point display
         var resampledPath = RouteService.getResampledPath(RouteService.turfLine, RouteService.elevationCollection);
 

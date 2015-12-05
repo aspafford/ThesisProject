@@ -3,7 +3,9 @@
   'use strict';
   angular.module('app.elevation', [])
     .controller('ElevationCtrl', ['$scope', function($scope) {
-      console.log('in myctrl');
-      $scope.test = "ElevationCtrl controller data";
+      $scope.$on('routePlotted', function(event, data) {
+       console.log('in elevationController', data)
+        $scope.test = 'heerre!';
+      });
     }]);
 })();
