@@ -17,6 +17,8 @@
 
       vm.tiltCheck = false;
 
+      console.log('here');
+
       vm.mouseDown = function(e) {
         if (vm.tiltCheck) {
           vm.xpos = e.pageX;

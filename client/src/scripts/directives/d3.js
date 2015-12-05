@@ -4,6 +4,7 @@ angular.module('app.d3Directive', ['d3'])
       restrict: 'EA',
       scope: {},
       link: function(scope, element, attrs) {
+        console.log(scope.test, '<< test');
         d3Service.d3().then(function(d3) {
 
           var margin = parseInt(attrs.margin) || 20,
@@ -18,6 +19,8 @@ angular.module('app.d3Directive', ['d3'])
           window.onresize = function() {
             scope.$apply();
           };
+
+          scope: { obj: '=' }
 
           // hard-code data
           scope.data = [{

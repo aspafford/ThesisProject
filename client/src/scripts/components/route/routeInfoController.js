@@ -11,6 +11,12 @@
         vm.minElevationDistance = turf.lineDistance(RouteService.minElevationPath.turfLine).toFixed(2);
         vm.placeNameStart = RouteService.placeNameStart;
         vm.placeNameEnd = RouteService.placeNameEnd;
+        vm.elevation = RouteService.elevationCollection;
+        var elevationCoords = vm.elevation.features;
+        // console.log(elevationCoords);
+        elevationCoords.forEach(function(feature) {
+          console.log(feature.geometry.coordinates, 'coords', feature.properties.elevation, 'elevation');
+        });
       }
     }])
 })();

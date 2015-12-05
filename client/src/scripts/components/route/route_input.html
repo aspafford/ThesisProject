@@ -1,4 +1,11 @@
+<div ng-controller="MyCtrl">
+    <pass-object></pass-object>
+</div>
+
 <div id="route-sidebar" ng-controller="RouteInputController as routeCtrl">
+
+  <div d3-bars bar-height="20" bar-padding="5"></div>
+
   <div id="icon-container"><br>
     <ng-md-icon icon="my_location" id="navigation-icon" size="35" ng-click="routeCtrl.getLocation()"></ng-md-icon> 
   </div><br>

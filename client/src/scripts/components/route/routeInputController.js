@@ -2,7 +2,7 @@
 (function() {
   'use strict';
   angular.module('app.routeInput', [])
-    .controller('RouteInputController', ['$location', '$q', 'RouteService', function($location, $q, RouteService) {
+    .controller('RouteInputController', ['$scope', '$location', '$q', 'RouteService', function($scope, $location, $q, RouteService) {
       var vm = this;
       var polyline;
       var queryResult;
@@ -78,8 +78,11 @@
         RouteService.placeNameEnd = vm.selectedEnd.place_name;
 
         var prefs = {};
-        prefs.shortestPathChecked = vm.shortestPathChecked;
-        prefs.minElevPathChecked = vm.minElevPathChecked;
+        // prefs.shortestPathChecked = vm.shortestPathChecked;
+        // prefs.minElevPathChecked = vm.minElevPathChecked;
+
+        prefs.shortestPathChecked = true;
+        prefs.minElevPathChecked = true;
 
         //console.log("shortestPathChecked", prefs.shortestPathChecked);
         //console.log("minElevPathChecked", prefs.minElevPathChecked);       
@@ -118,10 +121,10 @@
         // turfLines will be added to featureLayer
         turfLines.features.push(RouteService.turfLine);        
         // re-format elevation data with turf points
-        var elevationCollection = RouteService.getElevationPath(elevation);
+        RouteService.elevationCollection = RouteService.getElevationPath(elevation);
 
         // resample turfline for 3d point display
-        var resampledPath = RouteService.getResampledPath(RouteService.turfLine, elevationCollection);
+        var resampledPath = RouteService.getResampledPath(RouteService.turfLine, RouteService.elevationCollection);
 
         // draw route on the map and fit the bounds of the map viewport to the route
         polyline = L.geoJson(RouteService.turfLine, {
@@ -152,5 +155,8 @@
         //clear out currentPosition
         currentPosition = null;
       };
+
+      vm.submitRoute();
+
     }])
 })();
