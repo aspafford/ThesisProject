@@ -15,6 +15,7 @@
     'app.routeInput',
     'app.routeInfo',
     'app.elevation',
+    'app.barChart',
     'angularSpinner',
     'ngLoadingSpinner',
     'ngMdIcons',

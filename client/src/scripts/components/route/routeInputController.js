@@ -123,11 +123,12 @@
         // re-format elevation data with turf points
         RouteService.elevationCollection = RouteService.getElevationPath(elevation);
 
-        // broadcast elevationCollection to d3 controller
-        $scope.$broadcast('routePlotted', RouteService.elevationCollection);
-
         // resample turfline for 3d point display
         var resampledPath = RouteService.getResampledPath(RouteService.turfLine, RouteService.elevationCollection);
+
+        // broadcast elevationCollection to d3 controller
+        // test with minElevationPath
+        if (pathType === 'minElevationPath') $scope.$broadcast('init2DGraph', resampledPath);
 
         // draw route on the map and fit the bounds of the map viewport to the route
         polyline = L.geoJson(RouteService.turfLine, {
