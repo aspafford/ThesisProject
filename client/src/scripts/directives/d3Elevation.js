@@ -9,13 +9,13 @@
         link: function(scope, element, attr) {
           d3Service.d3().then(function(d3) {
 
-            var margin = 20,
-              barHeight =  20,
-              barPadding =  5;
+            var margin = 2,
+              barWidth =  2,
+              barPadding =  1;
 
             var svg = d3.select(element[0])
               .append('svg')
-              .style('width', '100%');
+              .style('width', '100%', 'height', '400px');
 
             // Browser onresize event
             window.onresize = function() {
@@ -36,7 +36,7 @@
                 scope.render(scope.data);
               });
 
-              // RENDER
+              // render elevation graph
               scope.render = function(data) {
 
                 // remove all previous items before render
@@ -46,18 +46,21 @@
                 if (!data) return;
 
                 // setup variables
-                var width = d3.select(element[0]).node().offsetWidth - margin,
-                  // calculate the height
-                  height = scope.data.length * (barHeight + barPadding),
+                // var height = d3.select(element[0]).node().offsetHeight - margin,
+                var height = 400,
+                height2 = d3.select(element[0]).node().offsetWidth - margin,
+                  // calculate the width
+                  width = scope.data.length * (barWidth + barPadding),
                   // Use the category20() scale function for multicolor support
                   color = d3.scale.category20(),
-                  // our xScale
-                  xScale = d3.scale.linear()
+                  // our yScale
+                  yScale = d3.scale.linear()
                   .domain([0, d3.max(data, function(d) {
-                    console.log(d.properties.elevation, '<< data');
                     return d.properties.elevation;
                   })])
                   .range([0, width]);
+
+                console.log(height, 'height', height2, 'height2');
 
                 // set the height based on the calculations above
                 svg.attr('height', height);
@@ -65,18 +68,20 @@
                 // //create the rectangles for the bar chart
                 svg.selectAll('rect') .data(data).enter()
                     .append('rect')
-                    .attr('height', barHeight)
-                    .attr('width', 140)
-                    .attr('x', Math.round(margin / 2))
-                    .attr('y', function(d, i) {
-                      return i * (barHeight + barPadding);
+                    .attr('width', barWidth)
+                    .attr('height', 140)
+                    .attr('y', Math.round(margin / 2))
+                    .attr('x', function(d, i) {
+                      return i * (barWidth + barPadding);
                     })
                     .attr('fill', function(d) { return color(d.properties.elevation); })
                     .transition()
                       .duration(1000)
-                      .attr('width', function(d) {
-                        return xScale(d.properties.elevation);
+                      .attr('height', function(d) {
+                        return yScale(d.properties.elevation);
                       });
+
+                      // .attr("height", function(d) { return height - y(d.frequency); });
               }
               // END RENDER
 
