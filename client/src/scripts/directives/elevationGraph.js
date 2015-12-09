@@ -36,7 +36,7 @@
               .ticks(10, "ft");
 
             var line = d3.svg.line()
-              // .interpolate("basis")
+              .interpolate("monotone")
               .x(function(d) {return x(d[0])})
               .y(function(d) {return y(d[1])});
 
@@ -49,19 +49,26 @@
             // listen for init function in routeInputController
             // scope.$on('init2DGraph', function(event, data) {
 
-              console.log("recieved data on", scope.data);
+              console.log("recieved data on", scope.data.minElevPath);
               // remove all previous items before render
               svg.selectAll('*').remove();
 
-              console.log('x bounds', d3.extent(scope.data, function(d){return d[0];}))
-              console.log('y bounds', d3.extent(scope.data, function(d){return d[1];}))
-              x.domain(d3.extent(scope.data, function(d){return d[0];}));
-              y.domain(d3.extent(scope.data, function(d){return d[1];}));
+              var domainArray = scope.data.minElevPath.concat(scope.data.shortestPath);
+
+              console.log('x bounds', d3.extent(scope.data.minElevPath, function(d){return d[0];}))
+              console.log('y bounds', d3.extent(scope.data.minElevPath, function(d){return d[1];}))
+              x.domain(d3.extent(domainArray, function(d){return d[0];}));
+              y.domain(d3.extent(domainArray, function(d){return d[1];}));
 
               svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
+                .call(xAxis)
+                .append("text")
+                .attr("x", width)
+                .attr("dx", ".71em")
+                .style("text-anchor", "end")
+                .text("Distance");
 
               svg.append("g")
                 .attr("class", "y axis")
@@ -74,7 +81,11 @@
                 .text("Elevation");
 
               svg.append("path")
-                .datum(scope.data)
+                .datum(scope.data.minElevPath)
+                .attr("class", "line")
+                .attr("d", line);
+              svg.append("path")
+                .datum(scope.data.shortestPath)
                 .attr("class", "line")
                 .attr("d", line);
             // });

@@ -94,17 +94,7 @@
         prefs.minHikingChecked = vm.minHikingChecked;
         RouteService.routePrefs = prefs;
 
-      RouteService.data = {};
-      RouteService.data.minElevPath = [[1,3],
-                                       [2,6],
-                                       [3,2],
-                                       [4,7],
-                                       [5,5]];
-
-      RouteService.data.shortestPath = {};
-      RouteService.data.shortestPath.distance = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      RouteService.data.shortestPath.elevation = [1, 3, 2, 7, 5, 6, 2, 3, 8, 9];  
-
+    
 
        //  RouteService.postRouteRequest(start, end, prefs)
        //    .then(function successCb(res) {

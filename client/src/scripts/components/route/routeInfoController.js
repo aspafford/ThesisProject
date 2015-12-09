@@ -16,8 +16,33 @@
         // broadcast elevationCollection to d3 controller
         // test with minElevationPath
 
+          RouteService.data = {};
+      RouteService.data.minElevPath = [[1,3],
+                                       [2,6],
+                                       [3,0],
+                                       [4,7],
+                                       [5,5]];
+
+      RouteService.data.shortestPath = [[1,4],
+                                       [2,5],
+                                       [3,3],
+                                       [4,5],
+                                       [5,3],
+                                       [6,5],
+                                       [7,3],
+                                       [8,5]];
+
+      // RouteService.data.shortestPath = {};
+      // RouteService.data.shortestPath.distance = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      // RouteService.data.shortestPath.elevation = [1, 3, 2, 7, 5, 6, 2, 3, 8, 9];  
+
+      // RouteService.data.minElevPath = {};
+      // RouteService.data.shortestPath.distance = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      // RouteService.data.shortestPath.elevation = [2, 4, 1, 5, 7, 5, 4, 1, k, 9];  
+
+
         console.log('dada')
-        $scope.data = RouteService.data.minElevPath;
+        $scope.data = RouteService.data;
         console.log("$scope.data", $scope.data)
           
       // if (RouteService['minElevPath'].resampledPath) {
